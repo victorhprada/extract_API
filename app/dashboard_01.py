@@ -5,6 +5,7 @@ import time
 import os
 from datetime import datetime
 from dotenv import load_dotenv
+from sqlalchemy import create_engine
 
 
 # Carregar variáveis de ambiente
@@ -21,16 +22,12 @@ def write_postgres_data():
     "Lê os dados do banco PostgreSQL e retorna um DataFrame"
 
     try:
-        conn = psycopg2.connect(
-            host=POSTGRES_HOST,
-            port=POSTGRES_PORT,
-            database=POSTGRES_DB,
-            user=POSTGRES_USER,
-            password=POSTGRES_PASSWORD
-        )
-        query = "SELECT * FROM bitcoin_data ORDER BY timestamp DESC LIMIT 100"
-        df = pd.read_sql_query(query, conn)
-        conn.close()
+        # Criar string de conexão SQLAlchemy
+        DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+        engine = create_engine(DATABASE_URL)
+        
+        query = "SELECT * FROM bitcoin ORDER BY timestamp DESC LIMIT 100"
+        df = pd.read_sql_query(query, engine)
         return df
     except Exception as e:
         st.error(f"Erro ao conectar ao banco de dados: {e}")
