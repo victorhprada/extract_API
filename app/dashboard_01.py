@@ -26,7 +26,7 @@ def write_postgres_data():
         DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
         engine = create_engine(DATABASE_URL)
         
-        query = "SELECT * FROM bitcoin ORDER BY timestamp DESC LIMIT 100"
+        query = "SELECT * FROM bitcoin ORDER BY timestamp DESC"
         df = pd.read_sql_query(query, engine)
         return df
     except Exception as e:
