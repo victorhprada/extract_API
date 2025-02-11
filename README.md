@@ -1,44 +1,79 @@
+# Bitcoin Price Monitor
 
-# API Integration Examples
-
-Este repositório contém exemplos de integração com diferentes APIs usando Python.
+Sistema de monitoramento do preço do Bitcoin em tempo real, com ETL automatizado e dashboard interativo.
 
 ## Estrutura do Projeto
 
-- `Ex/ex01.py`: Exemplos básicos de requisições HTTP
-  - Integração com API do GitHub (eventos)
-  - Requisição simples ao Google
+```
+.
+├── src/
+│   ├── pipeline_03.py      # ETL com PostgreSQL
+│   ├── pipeline_04.py      # ETL com logging avançado
+│   ├── database.py         # Modelo do banco de dados
+│   └── requirements.txt    # Dependências do ETL
+├── app/
+│   ├── dashboard_00.py     # Dashboard demo com elementos Streamlit
+│   ├── dashboard_01.py     # Dashboard do Bitcoin em tempo real
+│   └── requirements.txt    # Dependências do dashboard
+└── .env                    # Variáveis de ambiente
+```
 
-- `Ex/ex02.py`: Exemplo de API com parâmetros
-  - Integração com JSONPlaceholder
-  - Demonstração de filtragem de comentários por postId
+## Funcionalidades
 
-- `Ex/ex03.py`: Integração com Coinbase API
-  - Consulta preço do Bitcoin em tempo real
-  - Tratamento de erros na requisição
-  - Headers personalizados
+### ETL (src/)
+- Coleta de dados da API Coinbase
+- Transformação e normalização dos dados
+- Armazenamento em PostgreSQL
+- Sistema de logging com Logfire
+- Execução automática a cada 15 segundos
 
-- `Ex/ex04.py`: Integração com OpenAI API
-  - Exemplo de chat completion com GPT-3.5
-  - Uso de variáveis de ambiente para chaves de API
-  - Tratamento de erros e limites de quota
+### Dashboard (app/)
+- Visualização em tempo real do preço do Bitcoin
+- Gráfico histórico de preços
+- Estatísticas (preço atual, máximo e mínimo)
+- Interface interativa com Streamlit
 
 ## Configuração
 
 1. Instale as dependências:
 ```bash
-pip install requests python-dotenv
+# Para o ETL
+cd src/
+pip install -r requirements.txt
+
+# Para o dashboard
+cd app/
+pip install -r requirements.txt
 ```
 
-2. Configure as variáveis de ambiente:
-   - Crie um arquivo `.env` na raiz do projeto
-   - Adicione sua chave da OpenAI:
+2. Configure as variáveis de ambiente no arquivo `.env`:
 ```
-chave=sua_chave_da_openai_aqui
+POSTGRES_USER=seu_usuario
+POSTGRES_PASSWORD=sua_senha
+POSTGRES_DB=nome_do_banco
+POSTGRES_HOST=host_do_banco
+POSTGRES_PORT=5432
+LOGFIRE_TOKEN=seu_token_logfire
 ```
 
-## Observações
+## Execução
 
-- Certifique-se de ter uma chave válida da OpenAI para o ex04.py
-- As requisições incluem tratamento de erros básico
-- Alguns exemplos incluem headers personalizados para melhor interação com as APIs
+1. Inicie o ETL:
+```bash
+python src/pipeline_04.py
+```
+
+2. Inicie o dashboard:
+```bash
+streamlit run app/dashboard_01.py
+```
+
+## Tecnologias Utilizadas
+
+- Python
+- PostgreSQL
+- SQLAlchemy
+- Streamlit
+- Logfire
+- Pandas
+- Requests
