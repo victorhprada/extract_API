@@ -1,60 +1,44 @@
-# ETL Project with Python Requests
 
-## Descrição
-Projeto de ETL (Extract, Transform, Load) desenvolvido em Python utilizando a biblioteca Requests para extrair dados de APIs REST, realizar transformações e carregar em um destino.
+# API Integration Examples
 
-## Pré-requisitos
-- Python 3.8+
-- pip (gerenciador de pacotes Python)
+Este repositório contém exemplos de integração com diferentes APIs usando Python.
 
-## Bibliotecas Principais
-- requests
-- pandas
-- python-dotenv
-- logging
+## Estrutura do Projeto
 
-## Instalação
-1. Clone o repositório
+- `Ex/ex01.py`: Exemplos básicos de requisições HTTP
+  - Integração com API do GitHub (eventos)
+  - Requisição simples ao Google
+
+- `Ex/ex02.py`: Exemplo de API com parâmetros
+  - Integração com JSONPlaceholder
+  - Demonstração de filtragem de comentários por postId
+
+- `Ex/ex03.py`: Integração com Coinbase API
+  - Consulta preço do Bitcoin em tempo real
+  - Tratamento de erros na requisição
+  - Headers personalizados
+
+- `Ex/ex04.py`: Integração com OpenAI API
+  - Exemplo de chat completion com GPT-3.5
+  - Uso de variáveis de ambiente para chaves de API
+  - Tratamento de erros e limites de quota
+
+## Configuração
+
+1. Instale as dependências:
 ```bash
-git clone https://github.com/seu-usuario/nome-do-projeto.git
-cd nome-do-projeto
+pip install requests python-dotenv
 ```
 
-2. Crie um ambiente virtual
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
+2. Configure as variáveis de ambiente:
+   - Crie um arquivo `.env` na raiz do projeto
+   - Adicione sua chave da OpenAI:
+```
+chave=sua_chave_da_openai_aqui
 ```
 
-3. Instale as dependências
-```bash
-pip install -r requirements.txt
-```
+## Observações
 
-4. Configure as variáveis de ambiente
-Crie um arquivo `.env` na raiz do projeto:
-```env
-API_KEY=sua_chave_api
-API_URL=https://api.exemplo.com/v1
-```
-
-## Uso
-Execute o script principal:
-```bash
-python main.py
-```
-
-## 📁 Estrutura do Projeto
-```
-projeto/
-├── src/
-│   ├── extract.py    # Funções de extração
-│   ├── transform.py  # Funções de transformação
-│   └── load.py       # Funções de carregamento
-├── data/            # Dados brutos e processados
-├── logs/            # Arquivos de log
-├── .env            # Variáveis de ambiente
-├── requirements.txt # Dependências
-└── main.py         # Script principal
-```
+- Certifique-se de ter uma chave válida da OpenAI para o ex04.py
+- As requisições incluem tratamento de erros básico
+- Alguns exemplos incluem headers personalizados para melhor interação com as APIs
